@@ -8,14 +8,28 @@ const PORT = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const notes = [];
+let notes = [];
 
+// read in DB file
+const readDB = () => {
+    fs.readFile(path.join(__dirname, '../../../db/db.json'), "utf8", (err, data) => {
+        // if (err) {
+        //     console.log("Failed to read DB.");
+        //     return;
+        // } else {
+        //     notes = JSON.parse(data);
+        // }
+        //console.log(notes);
+        err ? console.log("Failed to read DB.") : notes = JSON.parse(data);
+    });
+}
 
-
-// app.get('/*', (req, res) => {
-//     console.log("made it to index");
-//     res.sendFile(path.join(__dirname, '../../index.html'));
-// });
+const writeDB = (notes) => {
+    fs.readFile(path.join(__dirname, '../../../db/db.json'), notes, err => {
+        err ? console.log(err) : console.log("Wrote to DB");
+        //console.log(notes);
+    });
+}
 
 app.get('/', (req, res) => {
     console.log("made it to index");
@@ -28,9 +42,24 @@ app.get('/notes', (req, res) => {
 });
 
 app.get('/api/notes', (req, res) => {
-    console.log("made it to /api/notes:");
+    console.log("made it to GET /api/notes:");
+    readDB();
     console.log(notes);
     res.json(notes);
+});
+
+app.post('/api/notes', (req, res) => {
+    console.log("made it to POST /api/notes:");
+    readDB();
+    console.log(notes);
+    notes.push(req.body);
+    console.log(notes);
+    //res.json(notes);
+});
+
+app.get('*', (req, res) => {
+    console.log("made it to index");
+    res.sendFile(path.join(__dirname, '../../index.html'));
 });
 
 app.listen(PORT, () => {
