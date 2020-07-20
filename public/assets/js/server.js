@@ -12,20 +12,29 @@ let notes = [];
 
 // read in DB file
 const readDB = () => {
-    fs.readFile(path.join(__dirname, '../../../db/db.json'), "utf8", (err, data) => {
-        if (err) {
-            console.log("Failed to read DB.");
-            return;
-        } else {
-            console.log("trying to get notes");
-            console.log("data: ");
-            console.log(data);
-            notes = JSON.parse(data);
-            console.log("got notes");
-        }
-        console.log(notes);
-        //err ? console.log("Failed to read DB.") : notes = JSON.parse(data);
-    });
+    let data = fs.readFileSync(path.join(__dirname, '../../../db/db.json'), "utf8");
+    if (data) {
+        console.log("trying to get notes");
+        console.log("data: ");
+        console.log(data);
+        notes = JSON.parse(data);
+        console.log("got notes");
+    } else {
+        console.log("Failed to read DB.");
+    }
+    // fs.readFile(path.join(__dirname, '../../../db/db.json'), "utf8", (err, data) => {
+    //     if (err) {
+    //         console.log("Failed to read DB.");
+    //         return;
+    //     } else {
+    //         console.log("trying to get notes");
+    //         console.log("data: ");
+    //         console.log(data);
+    //         notes = JSON.parse(data);
+    //         console.log("got notes");
+    //     }
+    //     console.log(notes);
+    // });
 }
 
 const writeDB = (notes) => {
