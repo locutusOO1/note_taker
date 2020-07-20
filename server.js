@@ -14,26 +14,26 @@ let notes = [];
 
 // read in DB file
 const readDB = () => {
-    let data = fs.readFileSync(path.join(__dirname, '../../../db/db.json'), "utf8");
+    let data = fs.readFileSync(path.join(__dirname, './db/db.json'), "utf8");
     data ? notes = JSON.parse(data) : console.log("Failed to read DB.");
     return notes;
 }
 
 // write to DB file
-const writeDB = (notes) => fs.writeFile(path.join(__dirname, '../../../db/db.json'), JSON.stringify(notes), err => {
+const writeDB = (notes) => fs.writeFile(path.join(__dirname, './db/db.json'), JSON.stringify(notes), err => {
     if (err) {
         console.log(err);
     }
 });
 
 // serve index.html
-app.get('/assets/js/index.js', (req, res) => res.sendFile(path.join(__dirname, '../../assets/js/index.js')));
+app.get('/assets/js/index.js', (req, res) => res.sendFile(path.join(__dirname, './public/assets/js/index.js')));
 
 // serve index.html
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../../index.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, './public/index.html')));
 
 // serve notes.html
-app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, '../../notes.html')));
+app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, './public/notes.html')));
 
 // serve array of note objects
 app.get('/api/notes', (req, res) => res.json(readDB()));
@@ -49,7 +49,7 @@ app.post('/api/notes', (req, res) => {
 });
 
 // serve index.html
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../../index.html')));
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, './public/index.html')));
 
 // delete specific note, update DB file, refresh list of notes
 app.delete('/api/notes/:id', (req, res) => {
