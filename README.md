@@ -27,8 +27,8 @@
   * File Sytem - for creating and reading files
   * Path - for file paths
   * JS/ES6+ - for program logic
-  * HTML - for output layout
-  * CSS - for output style
+  * HTML - for layout
+  * CSS - for style
   * Bootstrap - for responsive design
   * Heroku - for deploying server
 
