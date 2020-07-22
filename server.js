@@ -29,6 +29,9 @@ const writeDB = (notes) => fs.writeFile(path.join(__dirname, './db/db.json'), JS
 // serve index.html
 app.get('/assets/js/index.js', (req, res) => res.sendFile(path.join(__dirname, './public/assets/js/index.js')));
 
+// serve styles.css
+app.get('/assets/css/styles.css', (req, res) => res.sendFile(path.join(__dirname, './public/assets/css/styles.css')));
+
 // serve index.html
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, './public/index.html')));
 
