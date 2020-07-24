@@ -8,6 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static('public'));
 
 // array to hold note objects
 let notes = [];
@@ -27,16 +28,10 @@ const writeDB = (notes) => fs.writeFile(path.join(__dirname, './db/db.json'), JS
 });
 
 // serve index.html
-app.get('/assets/js/index.js', (req, res) => res.sendFile(path.join(__dirname, './public/assets/js/index.js')));
-
-// serve styles.css
-app.get('/assets/css/styles.css', (req, res) => res.sendFile(path.join(__dirname, './public/assets/css/styles.css')));
-
-// serve index.html
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, './public/index.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public','index.html')));
 
 // serve notes.html
-app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, './public/notes.html')));
+app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, 'public','notes.html')));
 
 // serve array of note objects
 app.get('/api/notes', (req, res) => res.json(readDB()));
@@ -52,7 +47,7 @@ app.post('/api/notes', (req, res) => {
 });
 
 // serve index.html
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, './public/index.html')));
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public','index.html')));
 
 // delete specific note, update DB file, refresh list of notes
 app.delete('/api/notes/:id', (req, res) => {
